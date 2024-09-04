@@ -1,4 +1,4 @@
-package cadastrousuario;
+package cadastrousuarios;
 
 public abstract class CadastroAbstrato {
     protected String nome;
