@@ -1,4 +1,4 @@
-import cadastrousuarios.LoginPermissoes;
+'import cadastrousuarios.LoginPermissoes;
 import cadastrousuarios.Usuario;
 
 public class Main {
@@ -9,3 +9,4 @@ public class Main {
         usuario.criarArquivoUsuario();
     }
 }
+'
