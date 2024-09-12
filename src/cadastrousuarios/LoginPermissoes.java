@@ -1,5 +1,5 @@
 package cadastrousuarios;
-
+//essa classe é um objeto da classe abstrata que uso.
 public class LoginPermissoes extends Usuario {
 
     public LoginPermissoes(String nome, String email, String senha, boolean UsuarioOuAdm) {

@@ -71,9 +71,7 @@ public abstract class Usuario {
 
   //método de contagem de arquivos para ser usado no for, para buscar validação
   // Método estático para incrementar o contador de arquivos
-  private static void incrementaContadorArquivos() {
-    contadorArquivos++;
-}
+  //eu preciso desse método para rodar dentro de um for que irá percorrer todos os arquivos
 
     // Método estático para obter o número total de arquivos criados
     public static int getContadorArquivos() {
@@ -83,7 +81,6 @@ public abstract class Usuario {
     public abstract String getPermissao();
 
     //método de validação de adm ou usuário
- // Método de validação
  public boolean validando(String email, String senha) {
     File pasta = new File("C:\\projetojavabiblioteca\\src\\arquivos");
     File[] arquivos = pasta.listFiles((dir, name) -> name.endsWith("_usuario.txt"));
@@ -116,6 +113,17 @@ public abstract class Usuario {
     return false; // Nenhum arquivo correspondente com email e senha corretos foi encontrado
 }
 
+public void LoginPermissoes(boolean isValido) {
+    if (!isValido) {
+        System.out.println("Usuário não encontrado");
+    } else {
+        System.out.println("Usuário autenticado com sucesso");
+    }
 }
+
+
+
+}
+
 
 
