@@ -1,0 +1,5 @@
+Titulo do Livro: kiko
+Nome autor: kiko
+ISBN: 45.54
+quantidade no estoque: 45
+genero do livro: kiko

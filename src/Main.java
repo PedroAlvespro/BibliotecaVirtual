@@ -13,12 +13,13 @@ public class Main {
             System.out.println("digite 1- para prosseguir como usuario, 2- para adm e 0- sair");
             resposta = scr.nextInt();
                 if (resposta ==1){
-                    User.menuUsuario();
+                    User user = new User();  // Criar instância da classe User
+                    user.menuUsuario();  
                 } else if(resposta == 2){
-                UserAdm.menuUsuario();
-                } else{
-                    System.out.println("impossivel");
+                     UserAdm.menuUsuario();
                 }
+                 
+             
         } while (resposta !=0);
  
     

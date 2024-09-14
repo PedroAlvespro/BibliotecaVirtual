@@ -3,50 +3,48 @@ import java.util.Scanner;
 
 public class User {
 
-
-
-    public static void menuUsuario () {    
-
+    public void menuUsuario() {    
         Scanner res = new Scanner(System.in);
-        System.out.println("digite 1 para cadastrar novo usuario, 2 para entrar na conta e 0- para sair");
-        int roll = res.nextInt();
-        res.nextLine();
-
+        int roll;
+        
         do {
-            if (roll==1) {
-                System.out.println("digite seu nome: ");
+            System.out.println("Digite 1 para cadastrar novo usuário, 2 para entrar na conta e 0 para sair");
+            roll = res.nextInt();
+            res.nextLine();  // Limpar o buffer do scanner
+
+            if (roll == 1) {
+                System.out.println("Digite seu nome: ");
                 String nome = res.nextLine();
-                System.out.println("digite seu email: ");
+                System.out.println("Digite seu e-mail: ");
                 String email = res.nextLine();
-                System.out.println("digite sua senha: ");
+                System.out.println("Digite sua senha: ");
                 String senha = res.nextLine();
 
-                ModeloUsuario usuario = new ModeloUsuario(nome,email,senha);
-                usuario.criarArquivoUsuario(nome,email,senha);
+                ModeloUsuario usuario = new ModeloUsuario(nome, email, senha);
+                usuario.criarArquivoUsuario(nome, email, senha);
+
             } else if (roll == 2) {
-                System.out.println("digite seu nome");
+                System.out.println("Digite seu nome:");
                 String nomeLog = res.nextLine();
-               System.out.println("digite seu e-mail");
-               String emailLog = res.nextLine();
-               System.out.println("digite sua senha");
-               String senhaLog = res.nextLine();
-               
-               ModeloUsuario usuario4 = new ModeloUsuario(nomeLog, emailLog, senhaLog);
-               usuario4.login(emailLog, senhaLog);
-               if(usuario4.login(emailLog, senhaLog) == true){
-                Login menu = new Login();
-                menu.MenuLogin();
-               } else{
-                System.out.println("cadastre-se");
-               }
-            } else{
-                System.out.println("impossível");
+                System.out.println("Digite seu e-mail:");
+                String emailLog = res.nextLine();
+                System.out.println("Digite sua senha:");
+                String senhaLog = res.nextLine();
+
+                ModeloUsuario usuario4 = new ModeloUsuario(nomeLog, emailLog, senhaLog);
+                if (usuario4.login(emailLog, senhaLog)) {
+                    Login menu = new Login();
+                    menu.MenuLogin();
+                } else {
+                    System.out.println("Credenciais inválidas. Cadastre-se.");
+                }
+
+            } else if (roll != 0) {
+                System.out.println("Opção inválida. Tente novamente.");
             }
-               
-                
-            }while (roll != 0);
-        } 
-           
-            }
+
+        } while (roll != 0);
+    }
+}
 
 

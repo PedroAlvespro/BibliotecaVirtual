@@ -6,10 +6,9 @@ public class Login {
 
    public void MenuLogin(){
     
-    int inte;
-    Scanner sc = new Scanner(System.in);
-    
+    int inte;    
     do {
+        Scanner sc = new Scanner(System.in);
         System.out.println("1- Fazer empréstimo, 2 - Ver histórico de empréstimo, 0 - Sair");
         inte = sc.nextInt();
         sc.nextLine();
