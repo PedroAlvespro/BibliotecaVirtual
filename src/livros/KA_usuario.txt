@@ -1,0 +1,5 @@
+Titulo do Livro: KA
+Nome autor: desc
+ISBN: jbu
+quantidade no estoque: 41
+genero do livro: fic

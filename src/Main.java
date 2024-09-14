@@ -1,20 +1,36 @@
-import cadastrousuarios.LoginPermissoes;
+import java.util.Scanner;
+
+import cadastrousuarios.User;
+import cadastrousuarios.UserAdm;
 
 public class Main {
     public static void main(String[] args) {
-       LoginPermissoes usuario = new LoginPermissoes("Nthrti", "nacddningatinho@gmail.com", "miau maiu miau", true);
-        
-        // Cria o arquivo do usuário
-        usuario.criarArquivoUsuario();
+
+        //menu main para cadastro
+        int resposta;
+        do {
+            Scanner scr = new Scanner(System.in);
+            System.out.println("digite 1- para prosseguir como usuario, 2- para adm e 0- sair");
+            resposta = scr.nextInt();
+            switch (resposta) {
+                case 0:
+                break;
+                 case 1:
+                 User.menuUsuario();
+                 break;
+     
+                 case 2:
+                UserAdm.menuUsuario();
+                 break;
+                
     
-        boolean isValido = usuario.validando("joao@exemplo.com", "senha123");
-
-        // Verificando permissões
-        usuario.LoginPermissoes(isValido);
-
-        // Exibindo permissões
-        System.out.println("Permissão: " + usuario.getPermissao());        
-    }
-
-   
+                 default:
+                 System.out.println("impossível");
+                 break;
+             }
+        } while (resposta !=0);
+ 
+    
+    
+}
 }

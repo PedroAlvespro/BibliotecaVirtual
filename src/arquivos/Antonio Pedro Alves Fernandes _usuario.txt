@@ -1,3 +1,0 @@
-Nome: Antonio Pedro Alves Fernandes 
-Email: pedro@example.com
-Senha: senha123

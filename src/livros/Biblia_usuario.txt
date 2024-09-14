@@ -1,0 +1,5 @@
+Titulo do Livro: Biblia
+Nome autor: Deus
+ISBN: jbu
+quantidade no estoque: 41
+genero do livro: realidade
