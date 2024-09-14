@@ -99,46 +99,44 @@ public class ModeloAdm implements AdmInterface{
         } 
          else { 
             int opc;
-            while (true){
+            do{
             Scanner cs = new Scanner(System.in);
             System.out.println("digite 1 para criar livro, 2- para deletar e 3 para alterar livro ou 0-para sair");
             opc = cs.nextInt();
             cs.nextLine();
 
-            switch (opc) {
-                case 0:
-                cs.close();
-                break;
-                case 1:
-                    System.out.println("digite o titulo do livro");
-                    String tituloLivro = cs.nextLine();
-                    System.out.println("digite o autor do livro");
-                    String autor = cs.nextLine();
-                    System.out.println("digite o ISBN do livro");
-                    double ISBN = cs.nextDouble();
-                    cs.nextLine();
-                    System.out.println("digite a quantidade de livros no estoque");
-                    int quantidadeEstoque = cs.nextInt();
-                    cs.nextLine();
-                    System.out.println("digite o gênero do livro");
-                    String generoLivro = cs.nextLine();
-                    criarArquivoLivro(tituloLivro,autor,ISBN,quantidadeEstoque,generoLivro);
-                    continue;
-                case 2:
+            if(opc == 1){
+
+                System.out.println("digite o titulo do livro");
+                String tituloLivro = cs.nextLine();
+                System.out.println("digite o autor do livro");
+                String autor = cs.nextLine();
+                System.out.println("digite o ISBN do livro");
+                double ISBN = cs.nextDouble();
+                cs.nextLine();
+                System.out.println("digite a quantidade de livros no estoque");
+                int quantidadeEstoque = cs.nextInt();
+                cs.nextLine();
+                System.out.println("digite o gênero do livro");
+                String generoLivro = cs.nextLine();
+                criarArquivoLivro(tituloLivro,autor,ISBN,quantidadeEstoque,generoLivro);
+               
+            } else if (opc == 2) {
                 System.out.println("digite o titulo do livro");
                 String tituloLivroDeletado = cs.nextLine();
                 deletarArquivoLivro(tituloLivroDeletado);
-                continue;
-                default:
-                    break;
-                    
+            } else{
+                System.out.println("erro");
             }
+              
+                    
+            } while(opc!=0);
             return true;  
-        }
+        } 
             
              
         }
-    }
+    
 
     //método de criar arquivo 
     @Override

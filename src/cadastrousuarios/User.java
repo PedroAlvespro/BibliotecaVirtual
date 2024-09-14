@@ -12,14 +12,8 @@ public class User {
         int roll = res.nextInt();
         res.nextLine();
 
-        
-            switch (roll) {
-                case 0:
-                res.close();
-                break;
-                
-                case 1:
-    
+        do {
+            if (roll==1) {
                 System.out.println("digite seu nome: ");
                 String nome = res.nextLine();
                 System.out.println("digite seu email: ");
@@ -29,8 +23,7 @@ public class User {
 
                 ModeloUsuario usuario = new ModeloUsuario(nome,email,senha);
                 usuario.criarArquivoUsuario(nome,email,senha);
-
-                case 2:
+            } else if (roll == 2) {
                 System.out.println("digite seu nome");
                 String nomeLog = res.nextLine();
                System.out.println("digite seu e-mail");
@@ -46,11 +39,14 @@ public class User {
                } else{
                 System.out.println("cadastre-se");
                }
-                   
-                default:
-                    break;
+            } else{
+                System.out.println("impossível");
             }
+               
+                
+            }while (roll != 0);
+        } 
+           
             }
 
 
-}

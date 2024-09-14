@@ -8,18 +8,13 @@ public class UserAdm {
         Scanner res = new Scanner(System.in); // Criação do Scanner fora do loop
         int roll;
 
-        try {
-            while (true) {
+                do {
                 System.out.println("Digite 1 para cadastrar novo usuário, 2 para entrar na conta e 0 para sair");
                 roll = res.nextInt();
                 res.nextLine(); // Consome a nova linha após o inteiro
 
-                switch (roll) {
-                    case 0:
-                        System.out.println("Saindo do programa.");
-                       break;
-
-                    case 1:
+                   
+                    if(roll == 1){
                         System.out.println("Digite seu nome: ");
                         String nome = res.nextLine();
                         System.out.println("Digite seu e-mail: ");
@@ -30,7 +25,7 @@ public class UserAdm {
                         ModeloAdm usuario = new ModeloAdm(nome, email, senha);
                         usuario.criarArquivoAdm(nome, email, senha);
 
-                    case 2:
+                    } else if(roll == 2){
                         System.out.println("Digite seu nome: ");
                         String nomeLog = res.nextLine();
                         System.out.println("Digite seu e-mail: ");
@@ -49,16 +44,9 @@ public class UserAdm {
                         } else {
                             System.out.println("Login falhou.");
                         }
-
-                    default:
-                        System.out.println("Opção inválida. Tente novamente.");
-                        break;
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Erro: " + e.getMessage());
-        } finally {
-            res.close(); // Garante que o Scanner seja fechado
-        }
+                   
+                } 
+            } while (roll != 0);
+       
     }
 }
