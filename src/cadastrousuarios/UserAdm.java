@@ -7,7 +7,7 @@ import gestaodelivros.ObjLivro;
 public class UserAdm {
 
     public static void menuUsuario() {
-        Scanner res = new Scanner(System.in); // Criação do Scanner fora do loop
+        Scanner res = new Scanner(System.in); 
         int roll;
 
                 do {

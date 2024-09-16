@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
+
 public class ModeloAdm implements AdmInterface{
 
                 protected String nome;
@@ -49,12 +50,11 @@ public class ModeloAdm implements AdmInterface{
                 
                 }
 
-                    // Método para verificar se existe um arquivo com o email e senha
+                //login adm
                 public boolean login(String emailLog, String senhaLog) {
                 String pastaPath = "C:\\bibliotecavirtujava\\src\\arquivosadm";
                 File pasta = new File(pastaPath);
             
-                 // Listar todos os arquivos na pasta
                  File[] arquivos = pasta.listFiles();
             
                  if (arquivos != null) {
@@ -76,6 +76,7 @@ public class ModeloAdm implements AdmInterface{
                         // Comparar o email e a senha fornecidos com os armazenados
                         if (email.equals(emailArquivo) && senha.equals(senhaArquivo)) {
                             System.out.println("Login bem-sucedido!");
+                            
                             return true;
                         }
                         
@@ -83,6 +84,7 @@ public class ModeloAdm implements AdmInterface{
                         System.err.println("Erro ao ler o arquivo: " + e.getMessage());
                     }
                 }
+                
             }
             
             // Se não encontrar nenhuma correspondência

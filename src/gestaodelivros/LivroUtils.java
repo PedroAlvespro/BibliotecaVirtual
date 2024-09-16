@@ -8,11 +8,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import gestaodeemprestimos.PrazosPenalidades;
+
 public abstract class LivroUtils implements LivroAlter{
 
 
    
-    //método caso o usuário seja true para acessar os livros
     public boolean MenuUtilAdms(String emailLog, String senhaLog){
         if (login(emailLog,senhaLog) != true){
             System.out.println("você não é um adm");
@@ -22,7 +23,7 @@ public abstract class LivroUtils implements LivroAlter{
             int opc;
             do{
             Scanner cs = new Scanner(System.in);
-            System.out.println("digite 1 para criar livro, 2- para deletar e 3 para alterar livro ou 0-para sair");
+            System.out.println("digite 1 para criar livro, 2- para deletar e 3 para alterar livro, 4 para ver todos os empréstimos ou 0-para sair");
             opc = cs.nextInt();
             cs.nextLine();
 
@@ -60,9 +61,12 @@ public abstract class LivroUtils implements LivroAlter{
                 System.out.println("digite o gênero do livro");
                 String generoLivroA = cs.nextLine();
                 EditarLivro(tituloLivroA, tituloLivroA, autorA, ISBNA, quantidadeEstoqueA, generoLivroA);
+            } else if (opc == 4) {
+                PrazosPenalidades AdmListar = new PrazosPenalidades();
+                AdmListar.listarTodosEmprestimos();
             }
              else{
-                System.out.println("erro");
+                System.out.println("  ");
             }
               
                     
@@ -72,8 +76,8 @@ public abstract class LivroUtils implements LivroAlter{
             
         }
     
-                // Método para verificar se existe um arquivo com o email e senha
-                public boolean login(String emailLog, String senhaLog) {
+             
+    public boolean login(String emailLog, String senhaLog) {
                 String pastaPath = "C:\\bibliotecavirtujava\\src\\arquivosadm";
                 File pasta = new File(pastaPath);
             
@@ -235,7 +239,6 @@ public abstract class LivroUtils implements LivroAlter{
         } while (opcm != 0);
     }
     
-    // Método que realiza a busca com base no filtro e valor
     public void buscarLivro(String filtro, String valor) {
         // Define o caminho da pasta onde os arquivos de livros estão armazenados
         String pastaPath = "C:\\bibliotecavirtujava\\src\\livros";

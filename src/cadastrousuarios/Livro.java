@@ -15,7 +15,7 @@ import java.util.List;
 public abstract class Livro {
     
     public void emprestimo(String email, String senha, String tituloLivro, String autor, double ISBN) {
-    // Define o caminho da pasta de livros
+   
     String pastaLivrosPath = "C:\\bibliotecavirtujava\\src\\livros";
     File pastaLivros = new File(pastaLivrosPath);
     File[] arquivosLivros = pastaLivros.listFiles();
@@ -25,11 +25,9 @@ public abstract class Livro {
         return;
     }
 
-    // Variável para armazenar a quantidade de estoque
     int quantidadeEstoque = -1;
     File arquivoLivroAtualizado = null;
     
-    // Verificar se o livro existe e ler a quantidade no estoque
     for (File arquivo : arquivosLivros) {
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
             String linha;
@@ -130,10 +128,8 @@ public abstract class Livro {
         System.out.println("Livro não encontrado.");
     }
 }
-
-
-     // Método para exibir o histórico de empréstimos de um usuário
-     public void historicoEmprestimos(String email, String senha) {
+  
+    public void historicoEmprestimos(String email, String senha) {
         String pastaPath = "C:\\bibliotecavirtujava\\src\\emprestimos";
         File arquivo = new File(pastaPath, email + "_emprestimo.txt");
 
@@ -142,7 +138,6 @@ public abstract class Livro {
             return;
         }
 
-        // Lê o arquivo e exibe o histórico
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             boolean usuarioValido = false;
@@ -164,6 +159,99 @@ public abstract class Livro {
             System.err.println("Erro ao ler o histórico de empréstimos: " + e.getMessage());
         }
     }
+    
+    public void devolverLivro(String email, String tituloLivro, String autor, double ISBN) {
+        
+        String pastaLivrosPath = "C:\\bibliotecavirtujava\\src\\livros";
+        File pastaLivros = new File(pastaLivrosPath);
+        File[] arquivosLivros = pastaLivros.listFiles();
+    
+        if (arquivosLivros == null || arquivosLivros.length == 0) {
+            System.out.println("Nenhum livro encontrado no sistema.");
+            return;
+        }
+    
+       
+        File arquivoLivroAtualizado = null;
+        int quantidadeEstoque = -1;
+        for (File arquivo : arquivosLivros) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
+                String linha;
+                String tituloArquivo = null;
+                String autorArquivo = null;
+                int estoqueAtual = -1;
+    
+                while ((linha = reader.readLine()) != null) {
+                    if (linha.startsWith("Titulo do Livro: ")) {
+                        tituloArquivo = linha.substring(16).trim();
+                    } else if (linha.startsWith("Nome autor: ")) {
+                        autorArquivo = linha.substring(12).trim();
+                    } else if (linha.startsWith("quantidade no estoque: ")) {
+                        estoqueAtual = Integer.parseInt(linha.substring(23).trim());
+                    }
+                }
+    
+                // Verificar se o título e o autor coincidem
+                if (tituloLivro.equalsIgnoreCase(tituloArquivo) && autor.equalsIgnoreCase(autorArquivo)) {
+                    quantidadeEstoque = estoqueAtual;
+                    arquivoLivroAtualizado = arquivo;
+                    break;
+                }
+            } catch (IOException e) {
+                System.err.println("Erro ao ler o arquivo do livro: " + e.getMessage());
+            }
+        }
+    
+        if (arquivoLivroAtualizado == null) {
+            System.out.println("Livro não encontrado para devolução.");
+            return;
+        }
+    
+       
+        String pastaEmprestimosPath = "C:\\bibliotecavirtujava\\src\\emprestimos";
+        File pastaEmprestimos = new File(pastaEmprestimosPath);
+        String nomeArquivoEmprestimo = email + "_emprestimo.txt"; 
+        File arquivoEmprestimo = new File(pastaEmprestimos, nomeArquivoEmprestimo);
+    
+        if (!arquivoEmprestimo.exists()) {
+            System.out.println("Nenhum empréstimo registrado para o usuário " + email + ".");
+            return;
+        }
+    
+        // Atualiza a quantidade no estoque do livro
+        try {
+            List<String> linhasArquivo = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new FileReader(arquivoLivroAtualizado))) {
+                String linha;
+                while ((linha = reader.readLine()) != null) {
+                    // Atualizar a quantidade no estoque
+                    if (linha.startsWith("quantidade no estoque: ")) {
+                        linha = "quantidade no estoque: " + (quantidadeEstoque + 1);
+                    }
+                    linhasArquivo.add(linha);
+                }
+            }
+    
+            // Reescrever o arquivo com a nova quantidade de estoque
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoLivroAtualizado))) {
+                for (String linha : linhasArquivo) {
+                    writer.write(linha);
+                    writer.newLine();
+                }
+            }
+            System.out.println("Estoque atualizado com sucesso. Nova quantidade: " + (quantidadeEstoque + 1));
+        } catch (IOException e) {
+            System.err.println("Erro ao atualizar o arquivo do livro: " + e.getMessage());
+        }
+    
+        // Remover o arquivo de empréstimo
+        if (arquivoEmprestimo.delete()) {
+            System.out.println("Devolução registrada com sucesso. Arquivo de empréstimo removido.");
+        } else {
+            System.err.println("Erro ao remover o arquivo de empréstimo.");
+        }
+    }
+    
 
 }
 

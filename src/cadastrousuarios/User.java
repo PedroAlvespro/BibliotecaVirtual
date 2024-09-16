@@ -1,6 +1,8 @@
 package cadastrousuarios;
 import java.util.Scanner;
 
+import notificacoes.NotificacaoExemplo;
+
 public class User {
 
     public void menuUsuario() {    
@@ -10,7 +12,7 @@ public class User {
         do {
             System.out.println("Digite 1 para cadastrar novo usuário, 2 para entrar na conta e 0 para sair");
             roll = res.nextInt();
-            res.nextLine();  // Limpar o buffer do scanner
+            res.nextLine();  
 
             if (roll == 1) {
                 System.out.println("Digite seu nome: ");
@@ -30,16 +32,23 @@ public class User {
                 String emailLog = res.nextLine();
                 System.out.println("Digite sua senha:");
                 String senhaLog = res.nextLine();
-
+                
                 ModeloUsuario usuario4 = new ModeloUsuario(nomeLog, emailLog, senhaLog);
                 if (usuario4.login(emailLog, senhaLog)) {
+    
+                    NotificacaoExemplo notificacao = new NotificacaoExemplo();
+                    notificacao.notifica(emailLog);
+                    notificacao.notificaNovidades();
+                    
                     Login menu = new Login();
-                    menu.MenuLogin();
+                    menu.MenuLogin();                 
+
                 } else {
                     System.out.println("Credenciais inválidas. Cadastre-se.");
                 }
 
-            } else if (roll != 0) {
+            } else if (roll != 0) 
+            {
                 System.out.println("Opção inválida. Tente novamente.");
             }
 

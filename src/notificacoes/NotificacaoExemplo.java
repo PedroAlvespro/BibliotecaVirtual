@@ -1,4 +1,4 @@
-package gestaodeemprestimos;
+package notificacoes;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,10 +8,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+public class NotificacaoExemplo {
 
-public class PrazosPenalidades {
-    
-    public void penalidade(String email) {
+    public void notifica(String email) {
         String pastaPath = "C:\\bibliotecavirtujava\\src\\emprestimos";
         File arquivo = new File(pastaPath, email + "_emprestimo.txt");
 
@@ -31,24 +30,22 @@ public class PrazosPenalidades {
                     usuarioValido = true;
                 }
                 if (usuarioValido && linha.startsWith("Data de vencimento: ")) {
-                    String vencimentoStr = linha.substring("Data de vencimento: ".length()).trim(); // Ajuste para extrair a data corretamente
+                    String vencimentoStr = linha.substring("Data de vencimento: ".length()).trim();
                     try {
                         dataVencimento = dateFormat.parse(vencimentoStr);
                     } catch (ParseException e) {
                         System.err.println("Erro ao analisar a data de vencimento: " + e.getMessage());
-                        return; // Sai do método se a data estiver mal formatada
+                        return;
                     }
                 }
             }
 
             if (dataVencimento != null) {
-                // Calcula o atraso
                 Date hoje = new Date();
                 long diffMillis = hoje.getTime() - dataVencimento.getTime();
                 long diffDays = diffMillis / (24 * 60 * 60 * 1000);
                 
                 if (diffDays > 0) {
-                   
                     double multa = diffDays * 1.0; // 1 real por dia de atraso
                     System.out.println("O livro está atrasado em " + diffDays + " dias. Multa de R$ " + multa);
                 } else {
@@ -62,29 +59,40 @@ public class PrazosPenalidades {
         }
     }
 
-    public void listarTodosEmprestimos() {
-        String pastaPath = "C:\\bibliotecavirtujava\\src\\emprestimos";
-        File pastaEmprestimos = new File(pastaPath);
-        File[] arquivosEmprestimos = pastaEmprestimos.listFiles();
-    
-        if (arquivosEmprestimos == null || arquivosEmprestimos.length == 0) {
-            System.out.println("Nenhum empréstimo encontrado no sistema.");
+    public void notificaNovidades() {
+        String pastaPath = "C:\\bibliotecavirtujava\\src\\livros"; // Diretório dos livros adicionados recentemente
+        File pasta = new File(pastaPath);
+
+        if (!pasta.exists() || !pasta.isDirectory()) {
+            System.err.println("Diretório de livros não encontrado: " + pastaPath);
             return;
         }
-    
-        // Percorre todos os arquivos de empréstimos e exibe o conteúdo
-        for (File arquivo : arquivosEmprestimos) {
-            System.out.println("Histórico de Empréstimos para o usuário (arquivo): " + arquivo.getName());
-            try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
-                String linha;
-                while ((linha = reader.readLine()) != null) {
-                    System.out.println(linha);
-                }
-                System.out.println(); //Linha em branco para separar os históricos dos diferentes usuários
-            } catch (IOException e) {
-                System.err.println("Erro ao ler o histórico de empréstimos do arquivo " + arquivo.getName() + ": " + e.getMessage());
+
+        File[] arquivos = pasta.listFiles();
+        if (arquivos == null || arquivos.length == 0) {
+            System.out.println("Nenhum livro encontrado.");
+            return;
+        }
+
+        File livroMaisRecente = null;
+        long ultimaModificacao = Long.MIN_VALUE; // Inicializa com o menor valor possível
+
+        for (File arquivo : arquivos) {
+            if (arquivo.isFile() && arquivo.lastModified() > ultimaModificacao) {
+                livroMaisRecente = arquivo;
+                ultimaModificacao = arquivo.lastModified();
             }
         }
+
+        if (livroMaisRecente != null) {
+            String nomeArquivo = livroMaisRecente.getName();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String dataModificacaoStr = dateFormat.format(new Date(livroMaisRecente.lastModified()));
+            System.out.println("Último livro adicionado: " + nomeArquivo + " (Data de adição: " + dataModificacaoStr + ")");
+        } else {
+            System.out.println("Nenhum livro encontrado.");
+        }
     }
-    
+
 }
+

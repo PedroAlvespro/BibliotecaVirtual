@@ -12,7 +12,7 @@ public class Login {
     int inte;    
     do {
         Scanner sc = new Scanner(System.in);
-        System.out.println("1- Fazer empréstimo, 2 - Ver histórico de empréstimo, 3- buscar livro 0 - Sair");
+        System.out.println("1- Fazer empréstimo, 2 - Ver histórico de empréstimo, 3- buscar livro, 4 para devolver livro 0 - Sair");
         inte = sc.nextInt();
         sc.nextLine();
 
@@ -45,11 +45,24 @@ public class Login {
             } else if(inte == 3){
                 ObjLivro busca = new ObjLivro();
                 busca.SistemaDeBusca ();
+            } else if (inte == 4) 
+            {
+                System.out.println("digite seu e-mail");
+                String emailLogD = sc.nextLine();
+                System.out.println("digite o titulo do livro");
+                String tituloLivroD = sc.nextLine();
+                System.out.println("digite o autor");
+                String autorD = sc.nextLine();
+                System.out.println("digite o ISBN");
+                double ISBND = sc.nextDouble();
+
+                LivroUtils de = new LivroUtils();
+                de.devolverLivro(emailLogD,tituloLivroD, autorD, ISBND);
+                
+            } else
+            {
+                System.out.println("retornando");
             }
-             else{
-                System.out.println("retonndo");
-            }
-                System.out.println("Opção inválida. Tente novamente.");
         
         
     } while(inte !=0);

@@ -1,5 +1,5 @@
 Titulo do Livro: Biblia
 Nome autor: Deus
 ISBN: 65.8
-Quantidade no estoque: 1
+Quantidade no estoque: 5
 Gênero do livro: realidade

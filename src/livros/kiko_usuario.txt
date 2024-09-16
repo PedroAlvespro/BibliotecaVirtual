@@ -1,0 +1,5 @@
+Titulo do Livro: kiko
+Nome autor: chaves
+ISBN: 1.78
+quantidade no estoque: 1
+genero do livro: ficcao

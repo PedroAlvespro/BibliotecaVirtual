@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LoggingExample",
+            "request": "launch",
+            "mainClass": "notificacoes.LoggingExample",
+            "projectName": "BibliotecaVirtuJava_16f9a324"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

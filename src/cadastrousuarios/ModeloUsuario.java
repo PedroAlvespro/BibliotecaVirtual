@@ -20,9 +20,9 @@ public class ModeloUsuario implements UserInterface{
                     this.senha = senha;
                 }
 
-                @Override
+                //cadastra novo usuário
                 public void criarArquivoUsuario (String nome, String email, String senha) {
-                    // Define o caminho da pasta e o nome do arquivo
+                   
                     String pastaPath = "C:\\bibliotecavirtujava\\src\\arquivos";
                     File pasta = new File(pastaPath);
                     String nomeArquivo = nome + "_usuario.txt";
@@ -45,13 +45,12 @@ public class ModeloUsuario implements UserInterface{
                         System.err.println("Erro ao criar o arquivo: " + e.getMessage());
                     }
                 }
-                    // Método para verificar se existe um arquivo com o email e senha
-                   @Override
-                    public boolean login(String emailLog, String senhaLog) {
+                
+                // Método para verificar se existe um arquivo com o email e senha  
+                public boolean login(String emailLog, String senhaLog) {
                         String pastaPath = "C:\\bibliotecavirtujava\\src\\arquivos";
                         File pasta = new File(pastaPath);
                     
-                         // Listar todos os arquivos na pasta
                          File[] arquivos = pasta.listFiles();
                     
                          if (arquivos != null) {
@@ -61,12 +60,12 @@ public class ModeloUsuario implements UserInterface{
                                      String emailArquivo = null;
                                     String senhaArquivo = null;
                                 
-                                // Ler o arquivo linha por linha
+                             
                                 while ((linha = reader.readLine()) != null) {
                                     if (linha.startsWith("Email: ")) {
-                                        emailArquivo = linha.substring(7);  // Pega o email após "Email: "
+                                        emailArquivo = linha.substring(7);  // Pega o email 
                                     } else if (linha.startsWith("Senha: ")) {
-                                        senhaArquivo = linha.substring(7);  // Pega a senha após "Senha: "
+                                        senhaArquivo = linha.substring(7);  // Pega a senha 
                                     }
                                 }
                                 
@@ -81,13 +80,9 @@ public class ModeloUsuario implements UserInterface{
                             }
                         }
                     }
-                    
-                    // Se não encontrar nenhuma correspondência
                     System.out.println("Email ou senha incorretos.");
                     return false;
             }
-      
-        
     }
     
 
