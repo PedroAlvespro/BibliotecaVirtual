@@ -2,6 +2,8 @@ package cadastrousuarios;
 
 import java.util.Scanner;
 
+import gestaodelivros.ObjLivro;
+
 public class UserAdm {
 
     public static void menuUsuario() {
@@ -34,17 +36,14 @@ public class UserAdm {
                         String senhaLog = res.nextLine();
 
                         ModeloAdm adm = new ModeloAdm(nomeLog, emailLog, senhaLog);
-                        if (adm.login(emailLog, senhaLog)) { // Verifica o login
-                            if (!adm.VerificaAdmPermissoes()) { // Verifica permissões
-                                System.out.println("Permissões insuficientes.");
-                            } else {
-                                System.out.println("Acesso concedido.");
-                                // Aqui você pode adicionar a lógica para o menu do administrador
-                            }
+                        adm.login(emailLog, senhaLog);
+                        //se for true, levar para o menu de LivroUtils
+                        if (adm.login(emailLog,senhaLog)== true) {
+                            ObjLivro menu = new ObjLivro();
+                            menu.MenuUtilAdms(emailLog,senhaLog);
                         } else {
-                            System.out.println("Login falhou.");
+                            System.out.println("impossível, pois você não é um adm.");
                         }
-                   
                 } 
             } while (roll != 0);
        

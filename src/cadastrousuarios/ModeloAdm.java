@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 
 public class ModeloAdm implements AdmInterface{
@@ -20,6 +19,7 @@ public class ModeloAdm implements AdmInterface{
                     this.email = email;
                     this.senha = senha;
                 }
+
                 @Override
                 public void criarArquivoAdm (String nome, String email, String senha) {
                     // Define o caminho da pasta e o nome do arquivo
@@ -89,109 +89,5 @@ public class ModeloAdm implements AdmInterface{
             System.out.println("Email ou senha incorretos.");
             return false;
     }
-
-    //método caso o usuário seja true para acessar os livros
-    @Override
-    public boolean VerificaAdmPermissoes(){
-        if (login(email, senha) != true){
-            System.out.println("você não é um adm");
-            return false;
-        } 
-         else { 
-            int opc;
-            do{
-            Scanner cs = new Scanner(System.in);
-            System.out.println("digite 1 para criar livro, 2- para deletar e 3 para alterar livro ou 0-para sair");
-            opc = cs.nextInt();
-            cs.nextLine();
-
-            if(opc == 1){
-
-                System.out.println("digite o titulo do livro");
-                String tituloLivro = cs.nextLine();
-                System.out.println("digite o autor do livro");
-                String autor = cs.nextLine();
-                System.out.println("digite o ISBN do livro");
-                double ISBN = cs.nextDouble();
-                cs.nextLine();
-                System.out.println("digite a quantidade de livros no estoque");
-                int quantidadeEstoque = cs.nextInt();
-                cs.nextLine();
-                System.out.println("digite o gênero do livro");
-                String generoLivro = cs.nextLine();
-                criarArquivoLivro(tituloLivro,autor,ISBN,quantidadeEstoque,generoLivro);
-               
-            } else if (opc == 2) {
-                System.out.println("digite o titulo do livro");
-                String tituloLivroDeletado = cs.nextLine();
-                deletarArquivoLivro(tituloLivroDeletado);
-            } else{
-                System.out.println("erro");
-            }
-              
-                    
-            } while(opc!=0);
-            return true;  
-        } 
-            
-             
-        }
-    
-
-    //método de criar arquivo 
-    @Override
-    public void criarArquivoLivro(String tituloLivro, String autor, double ISBN, int quantidadeEstoque, String generoLivro) {
-        // Define o caminho da pasta e o nome do livro
-        String pastaPath = "C:\\projetojavabiblioteca\\src\\livros";
-        File pasta = new File(pastaPath);
-        String nomeArquivoLivro = tituloLivro + "_usuario.txt";
-        File arquivo = new File(pasta, nomeArquivoLivro);
-
-        // Cria a pasta "arquivos" se não existir
-        if (!pasta.exists()) {
-            pasta.mkdirs();
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo))) {
-            writer.write("Titulo do Livro: " + tituloLivro);
-            writer.newLine();
-            writer.write("Nome autor: " + autor);
-            writer.newLine();
-            writer.write("ISBN: " + ISBN);
-            writer.newLine();
-            writer.write("quantidade no estoque: " + quantidadeEstoque);
-            writer.newLine();
-            writer.write("genero do livro: " + generoLivro);
-            writer.newLine();
-            System.out.println("Arquivo de livro criado com sucesso: " + arquivo.getAbsolutePath());
-        } catch (IOException e) {
-            System.err.println("Erro ao criar o arquivo: " + e.getMessage());
-        }
-    }
-
-    //método de deletar arquivo 
-    @Override
-    public void deletarArquivoLivro(String tituloLivro) {
-        // Define o caminho da pasta e o nome do arquivo do livro a ser deletado
-        String pastaPath = "C:\\projetojavabiblioteca\\src\\livros";
-        File pasta = new File(pastaPath);
-        String nomeArquivoLivro = tituloLivro + "_usuario.txt";
-        File arquivo = new File(pasta, nomeArquivoLivro);
-    
-        // Verifica se o arquivo existe antes de tentar deletar
-        if (arquivo.exists()) {
-            if (arquivo.delete()) {
-                System.out.println("Arquivo de livro deletado com sucesso: " + arquivo.getAbsolutePath());
-            } else {
-                System.err.println("Erro ao deletar o arquivo: " + arquivo.getAbsolutePath());
-            }
-        } else {
-            System.err.println("Arquivo não encontrado: " + arquivo.getAbsolutePath());
-        }
-    }
-    
-
-
-
-
+   
 }

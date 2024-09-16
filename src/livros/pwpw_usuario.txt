@@ -1,0 +1,5 @@
+Titulo do Livro: pwpw
+Nome autor: pwpw
+ISBN: 654.45
+quantidade no estoque: 45
+genero do livro: pwpw
