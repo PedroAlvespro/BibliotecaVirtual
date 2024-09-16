@@ -2,6 +2,7 @@ package cadastrousuarios;
 
 import java.util.Scanner;
 
+import gestaodeemprestimos.PrazosPenalidades;
 import gestaodelivros.ObjLivro;
 
 public class Login {
@@ -37,6 +38,9 @@ public class Login {
             String senhaLog = sc.nextLine();
             Livro livros = new LivroUtils();
             livros.historicoEmprestimos(emailLog,senhaLog);
+            //bota a multa aqui
+            PrazosPenalidades pe = new PrazosPenalidades();
+            pe.penalidade(emailLog);
              
             } else if(inte == 3){
                 ObjLivro busca = new ObjLivro();
